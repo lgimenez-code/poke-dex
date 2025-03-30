@@ -1,15 +1,15 @@
 import closeIcon from './close-icon.svg';
-import generalListIcon from './general-list-icon.svg';
+import listIcon from './list-icon.svg';
 import searchIcon from './search-icon.svg';
 import startActiveIcon from './star-active-icon.svg';
 import startInactiveIcon from './star-inactive-icon.svg';
-import startFavsIcon from './star-favs-icon.svg';
+import favsIcon from './favs-icon.svg';
 
 export default {
   closeIcon,
-  generalListIcon,
+  listIcon,
   searchIcon,
   startActiveIcon,
   startInactiveIcon,
-  startFavsIcon,
+  favsIcon,
 };

@@ -5,7 +5,6 @@
 </template>
 
 <script>
-import { useRouter } from 'vue-router';
 import BaseIcons from './assets/icons/BaseIcons.js';
 import BaseImages from './assets/img/BaseImages.js';
 

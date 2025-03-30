@@ -8,9 +8,13 @@
       <div class="containerText">
         <h2 class="titleWelcome">Welcome to Pokédex</h2>
         <p class="textWelcome">The digital encyclopedia created by Professor Oak is an invaluable tool to Trainers in the Pokémon world.</p>
-        <BaseButton :type="'primary'" @click="router.push('/general')">
-          Get Started
-        </BaseButton>
+        <div class="flex justify-center">
+          <div class="containerButton">
+            <BaseButton :type="'primary'" @click="router.push('/general')">
+            Get Started
+            </BaseButton>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -63,5 +67,9 @@ const BaseImages = inject('BaseImages');
   .textWelcome {
     @apply mb-[4rem];
   }
+}
+
+.containerButton {
+  @apply w-[14rem] h-[4.4rem];
 }
 </style>

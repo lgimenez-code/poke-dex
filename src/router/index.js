@@ -1,7 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import WelcomeView from '../views/WelcomeView.vue'
-import GeneralView from '../views/GeneralView.vue';
-import FavoritesView from '../views/FavoritesView.vue';
+import PokemonListView from '../views/PokemonListView.vue';
 
 const routes = [
   {
@@ -12,16 +11,11 @@ const routes = [
   {
     path: '/general',
     name: 'general',
-    component: GeneralView,
-  },
-  {
-    path: '/favorites',
-    name: 'favorites',
-    component: FavoritesView,
+    component: PokemonListView,
   },
   {
     path: '/:pathMatch(.*)*',
-    redirect: '/general',
+    redirect: '/welcome',
   },
 ];
 
