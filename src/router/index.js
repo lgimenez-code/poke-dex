@@ -6,7 +6,7 @@ import FavoritesView from '../views/FavoritesView.vue';
 const routes = [
   {
     path: '/welcome',
-    name: 'home',
+    name: 'welcome',
     component: WelcomeView,
   },
   {
