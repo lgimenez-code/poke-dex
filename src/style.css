@@ -1,0 +1,63 @@
+@import "tailwindcss";
+
+html {
+  box-sizing: border-box;
+  font-size: 62.5%;
+}
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+:root {
+  --primary: #F22539;
+  --secondary: #C00E20;
+  --hoverprimary: var(--secondary);
+  --hoversecondary: #A70C1C;
+  --gold: #ECA539;
+  --darkgray: #353535;
+  --midgray: #5E5E5E;
+  --lightgray: #BFBFBF;
+  --darkwhite: #E8E8E8;
+  --midwhite: #F5F5F5;
+  --lightwhite: #F9F9F9;
+  --white: #FFF;
+}
+
+body {
+  font-family: 'Lato', sans-serif;
+  font-size: 1.8rem;
+  line-height: 2;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+h1 {
+  font-size: 3.6rem;
+  font-weight: 700;
+}
+h2 {
+  font-size: 2.6rem;
+  font-weight: 700;
+}
+
+
+
+#app {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+
+
+
+
+
+
+
+
+
+
