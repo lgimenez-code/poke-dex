@@ -27,6 +27,9 @@ const BaseIcons = inject("BaseIcons");
   box-shadow: 0px 2px 10px 0px var(--midgray);
   transition: 0.5s ease-in-out;
 }
+img {
+  @apply ml-[0.5rem];
+}
 input {
   @apply w-[90%] outline-none  ;
 }
