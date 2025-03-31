@@ -1,17 +1,15 @@
 <template>
-  <div>
-    <!-- <BaseItem/> -->
-     <p v-for="(item, i) in pokemons" :key="i">{{ item.name }}, {{ item.url }}</p>
-
+  <div class="">
+    <BaseCard v-for="(item, i) in pokemons" :key="i"
+      :name="item.name"
+      :favorite="i == 5 ? true : false"
+    />
   </div>
 </template>
 
-
 <script setup>
-import BaseItem from "./BaseItem.vue";
-import { inject, defineProps } from "vue";
-
-const BaseIcons = inject("BaseIcons");
+import BaseCard from "./BaseCard.vue";
+import { defineProps } from "vue";
 
 defineProps({
   pokemons: {
@@ -20,19 +18,6 @@ defineProps({
   },
 });
 
-
-
-/*
-v-for="(item, index) in items"
-:key="index"
-:item="item"
-:isFavorite="isFavorite(item)"
-@toggleFavorite="toggleFavorite(item)"
-*/
-
 </script>
 
-
-<style scoped>
-
-</style>
+<style scoped></style>

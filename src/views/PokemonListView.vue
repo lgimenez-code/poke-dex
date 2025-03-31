@@ -40,9 +40,10 @@ const BaseIcons = inject("BaseIcons");
 const btnTypeAll = ref("primary");
 const btnTypeFavorites = ref("tertiary");
 const btnAllSelected = ref(true);
-const pokemons = ref(
-  [ { "name": "bulbasaur", "url": "https://pokeapi.co/api/v2/pokemon/1/" }, { "name": "ivysaur", "url": "https://pokeapi.co/api/v2/pokemon/2/" }, { "name": "venusaur", "url": "https://pokeapi.co/api/v2/pokemon/3/" }, { "name": "charmander", "url": "https://pokeapi.co/api/v2/pokemon/4/" }, { "name": "charmeleon", "url": "https://pokeapi.co/api/v2/pokemon/5/" }, { "name": "charizard", "url": "https://pokeapi.co/api/v2/pokemon/6/" }, { "name": "squirtle", "url": "https://pokeapi.co/api/v2/pokemon/7/" }, { "name": "wartortle", "url": "https://pokeapi.co/api/v2/pokemon/8/" }, { "name": "blastoise", "url": "https://pokeapi.co/api/v2/pokemon/9/" }, { "name": "caterpie", "url": "https://pokeapi.co/api/v2/pokemon/10/" }, { "name": "metapod", "url": "https://pokeapi.co/api/v2/pokemon/11/" }, { "name": "butterfree", "url": "https://pokeapi.co/api/v2/pokemon/12/" }, { "name": "weedle", "url": "https://pokeapi.co/api/v2/pokemon/13/" }, { "name": "kakuna", "url": "https://pokeapi.co/api/v2/pokemon/14/" }, { "name": "beedrill", "url": "https://pokeapi.co/api/v2/pokemon/15/" }, { "name": "pidgey", "url": "https://pokeapi.co/api/v2/pokemon/16/" }, { "name": "pidgeotto", "url": "https://pokeapi.co/api/v2/pokemon/17/" }, { "name": "pidgeot", "url": "https://pokeapi.co/api/v2/pokemon/18/" }, { "name": "rattata", "url": "https://pokeapi.co/api/v2/pokemon/19/" }, { "name": "raticate", "url": "https://pokeapi.co/api/v2/pokemon/20/" } ]
-);
+const pokemons = ref([
+    { "name": "bulbasaur", "url": "https://pokeapi.co/api/v2/pokemon/1/" }, { "name": "ivysaur", "url": "https://pokeapi.co/api/v2/pokemon/2/" }, { "name": "venusaur", "url": "https://pokeapi.co/api/v2/pokemon/3/" }, { "name": "charmander", "url": "https://pokeapi.co/api/v2/pokemon/4/" }, { "name": "charmeleon", "url": "https://pokeapi.co/api/v2/pokemon/5/" }, { "name": "charizard", "url": "https://pokeapi.co/api/v2/pokemon/6/" }, { "name": "squirtle", "url": "https://pokeapi.co/api/v2/pokemon/7/" }, { "name": "wartortle", "url": "https://pokeapi.co/api/v2/pokemon/8/" }, { "name": "blastoise", "url": "https://pokeapi.co/api/v2/pokemon/9/" }, { "name": "caterpie", "url": "https://pokeapi.co/api/v2/pokemon/10/" }, { "name": "metapod", "url": "https://pokeapi.co/api/v2/pokemon/11/" },
+  // { "name": "butterfree", "url": "https://pokeapi.co/api/v2/pokemon/12/" }, { "name": "weedle", "url": "https://pokeapi.co/api/v2/pokemon/13/" }, { "name": "kakuna", "url": "https://pokeapi.co/api/v2/pokemon/14/" }, { "name": "beedrill", "url": "https://pokeapi.co/api/v2/pokemon/15/" }, { "name": "pidgey", "url": "https://pokeapi.co/api/v2/pokemon/16/" }, { "name": "pidgeotto", "url": "https://pokeapi.co/api/v2/pokemon/17/" }, { "name": "pidgeot", "url": "https://pokeapi.co/api/v2/pokemon/18/" }, { "name": "rattata", "url": "https://pokeapi.co/api/v2/pokemon/19/" }, { "name": "raticate", "url": "https://pokeapi.co/api/v2/pokemon/20/" }
+]);
 
 const handleButton = () => {
   btnAllSelected.value = !btnAllSelected.value;
@@ -58,9 +59,14 @@ const handleButton = () => {
 
 </script>
 
+
 <style scoped>
+::-webkit-scrollbar {
+    display: none;
+}
+
 .containerPokemonView {
-  @apply w-[31.5rem] h-[90vh];
+  @apply w-[31.5rem] h-[90vh] relative;
 }
 @media (min-width: 768px) {
   .containerPokemonView {
@@ -69,25 +75,18 @@ const handleButton = () => {
 }
 
 .containerHeader {
-  @apply h-[5rem] w-[31.5rem]
-    fixed top-[2rem] z-[2];
-}
-@media (min-width: 768px) {
-  .containerHeader {
-    @apply w-[57rem];
-  }
+  @apply h-[5rem] w-full top-[0] z-[2] absolute;
 }
 
 .containerList {
-  @apply h-[85vh] mt-[2rem] z-[-1];
+  @apply w-full absolute z-[0] top-[8rem] bottom-[2rem] overflow-auto;
 }
 
 .containerFooter {
-  -webkit-box-shadow: 0px -1px 8px 0px var(--lightgray);
-  -moz-box-shadow: 0px -1px 8px 0px var(--lightgray);
   box-shadow: 0px -1px 8px 0px var(--lightgray);
-  @apply w-full h-[8rem] fixed bottom-[0] left-[0] right-[0]
-    flex justify-center items-center content-center z-[5];
+  @apply w-full h-[8rem] bottom-[0] left-[0] right-[0]
+    flex justify-center items-center content-center
+    fixed z-[5] bg-[var(--midwhite)];
 }
 
 .containerSelectors {
@@ -95,7 +94,7 @@ const handleButton = () => {
 }
 @media (min-width: 768px) {
   .containerSelectors {
-    @apply w-[57rem] ;
+    @apply w-[57rem];
   }
 }
 </style>
