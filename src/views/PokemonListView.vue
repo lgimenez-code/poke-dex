@@ -4,7 +4,8 @@
       <BaseSearch />
     </div>
     <div class="containerList">
-      <BaseList :pokemons="pokemons" />
+      <BaseList v-if="!loading" :pokemons="pokemonList" />
+      <Loader v-else class="loader"/>
     </div>
     <div class="containerFooter">
       <div class="containerSelectors">
@@ -30,20 +31,18 @@
 </template>
 
 <script setup>
-import { ref, inject } from "vue";
+import { ref, inject, onMounted } from "vue";
 import BaseSearch from "../components/BaseSearch.vue";
 import BaseList from "../components/BaseList.vue";
 import BaseButton from "../components/BaseButton.vue";
+import Loader from "../components/Loader.vue";
+import { usePokemon } from "../composables/usePokemon";
 
 const BaseIcons = inject("BaseIcons");
-
+const { pokemonList, loading, error, fetchPokemon, fetchPokemonByName, } = usePokemon();
 const btnTypeAll = ref("primary");
 const btnTypeFavorites = ref("tertiary");
 const btnAllSelected = ref(true);
-const pokemons = ref([
-    { "name": "bulbasaur", "url": "https://pokeapi.co/api/v2/pokemon/1/" }, { "name": "ivysaur", "url": "https://pokeapi.co/api/v2/pokemon/2/" }, { "name": "venusaur", "url": "https://pokeapi.co/api/v2/pokemon/3/" }, { "name": "charmander", "url": "https://pokeapi.co/api/v2/pokemon/4/" }, { "name": "charmeleon", "url": "https://pokeapi.co/api/v2/pokemon/5/" }, { "name": "charizard", "url": "https://pokeapi.co/api/v2/pokemon/6/" }, { "name": "squirtle", "url": "https://pokeapi.co/api/v2/pokemon/7/" }, { "name": "wartortle", "url": "https://pokeapi.co/api/v2/pokemon/8/" }, { "name": "blastoise", "url": "https://pokeapi.co/api/v2/pokemon/9/" }, { "name": "caterpie", "url": "https://pokeapi.co/api/v2/pokemon/10/" }, { "name": "metapod", "url": "https://pokeapi.co/api/v2/pokemon/11/" },
-  // { "name": "butterfree", "url": "https://pokeapi.co/api/v2/pokemon/12/" }, { "name": "weedle", "url": "https://pokeapi.co/api/v2/pokemon/13/" }, { "name": "kakuna", "url": "https://pokeapi.co/api/v2/pokemon/14/" }, { "name": "beedrill", "url": "https://pokeapi.co/api/v2/pokemon/15/" }, { "name": "pidgey", "url": "https://pokeapi.co/api/v2/pokemon/16/" }, { "name": "pidgeotto", "url": "https://pokeapi.co/api/v2/pokemon/17/" }, { "name": "pidgeot", "url": "https://pokeapi.co/api/v2/pokemon/18/" }, { "name": "rattata", "url": "https://pokeapi.co/api/v2/pokemon/19/" }, { "name": "raticate", "url": "https://pokeapi.co/api/v2/pokemon/20/" }
-]);
 
 const handleButton = () => {
   btnAllSelected.value = !btnAllSelected.value;
@@ -56,7 +55,9 @@ const handleButton = () => {
   }
 };
 
-
+onMounted(() => {
+  fetchPokemon();
+});
 </script>
 
 
@@ -79,7 +80,11 @@ const handleButton = () => {
 }
 
 .containerList {
-  @apply w-full absolute z-[0] top-[8rem] bottom-[2rem] overflow-auto;
+  @apply w-full absolute z-[0] top-[7rem] bottom-[2rem] overflow-auto;
+}
+
+.loader {
+  @apply flex justify-center items-center h-[80%];
 }
 
 .containerFooter {
