@@ -16,8 +16,8 @@
       />
       <Loader v-else class="loader"/>
       <BaseError
-        v-if="!filteredList.length && errorDataValue.length"
-        :errorMessage="errorDataValue || error"
+        v-if="error.length || (!filteredList.length && errorDataValue.length)"
+        :errorMessage="error || errorDataValue"
         @backToHome="searchField = ''"
       />
     </div>
@@ -134,7 +134,7 @@ const handleSelectorButton = () => {
 // event to find and show the pokemon selected in the modal
 const handleSelectPokemon = async (pokemon) => {
   await fetchPokemonByName(pokemon);
-  showModal.value = true;
+  showModal.value = !error.value;
   setSelectedPokemon();
 }
 
@@ -160,7 +160,7 @@ const setSelectedPokemon = () => {
     name: pokemonSearch.value?.name,
     weight: pokemonSearch.value?.weight,
     height: pokemonSearch.value?.height,
-    types: pokemonSearch.value?.types.map((item) => { return item.type.name }).join(', '),
+    types: pokemonSearch.value?.types?.map((item) => { return item.type.name }).join(', '),
   }
 }
 

@@ -24,8 +24,5 @@ export const useFavoritesStore = defineStore('favorites', {
     initializeFavorites(array) {
       this.favorites = array.slice();
     },
-    clearFavorites() {
-      this.favorites = [];
-    },
   },
 });
