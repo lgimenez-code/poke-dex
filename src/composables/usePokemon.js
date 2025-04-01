@@ -15,7 +15,7 @@ export function usePokemon() {
       const response = await pokeApi.get();
       pokemonList.value = response.results;
     } catch (err) {
-      error.value = "Failed to load data. " + err;
+      error.value = "Failed to load data."
     } finally {
       loading.value = false;
     }
@@ -30,7 +30,7 @@ export function usePokemon() {
       const response = await pokeApi.getByName(name);
       pokemonSearch.value = response;
     } catch (err) {
-      error.value = "Failed to load data. " + err;
+      error.value = "Failed to load data."
     } finally {
       loading.value = false;
     }

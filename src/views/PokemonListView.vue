@@ -8,13 +8,18 @@
     </div>
     <div class="containerList">
       <BaseList
-        v-if="!loading && generalList?.length"
-        :pokemons="generalList"
+        v-if="!loading"
+        :pokemons="filteredList"
         :favorites="storeFavorites.getFavorites"
         @selected="handleSelectPokemon"
         @addFavorite="handleAddFavorite"
       />
       <Loader v-else class="loader"/>
+      <BaseError
+        v-if="!filteredList.length && errorDataValue.length"
+        :errorMessage="errorDataValue || error"
+        @backToHome="searchField = ''"
+      />
     </div>
     <div class="containerFooter">
       <div class="containerSelectors">
@@ -61,6 +66,7 @@ import BaseList from "../components/BaseList.vue";
 import BaseButton from "../components/BaseButton.vue";
 import Loader from "../components/Loader.vue";
 import BaseModal from "../components/BaseModal.vue";
+import BaseError from "../components/BaseError.vue";
 import { usePokemon } from "../composables/usePokemon";
 import { useFavoritesStore } from "../stores/useFavoritesStore.js";
 import { useStorage } from "../composables/useStorage.js";
@@ -83,8 +89,10 @@ const btnAllSelected = ref(true);
 const showModal = ref(false);
 const selected = ref({});
 const searchField = ref('');
+const errorDataValue = ref('');
 
-const generalList = computed(() => {
+const filteredList = computed(() => {
+  errorDataValue.value = "";
   let arrayPokemon = [];
   // get the list "general" or "favorites"
   if (btnAllSelected.value) {
@@ -92,7 +100,7 @@ const generalList = computed(() => {
   } else {
     arrayPokemon = pokemonList.value.filter((item) => storeFavorites.getFavorites.includes(item.name));
   }
-  // if the search field have a value, then search...
+  // if the "search" field have a value, then search...
   if (searchField.value) {
     const queryLower = searchField.value.toLowerCase();
     arrayPokemon = arrayPokemon.filter(item => {
@@ -100,6 +108,10 @@ const generalList = computed(() => {
       return name.startsWith(queryLower) ||
         name.split(' ').some(word => word.startsWith(queryLower));
     });
+    // if there is no data to display...
+    if (!arrayPokemon.length) {
+      errorDataValue.value = 'You look lost on your journey!';
+    }
   }
 
   return arrayPokemon;

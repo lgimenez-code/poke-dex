@@ -1,5 +1,5 @@
 <template>
-  <div class="">
+  <div>
     <BaseCard v-for="(item, i) in pokemons" :key="i"
       :name="item.name"
       :favorite="favorites?.includes(item.name)"
