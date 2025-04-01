@@ -133,8 +133,8 @@ const handleSelectorButton = () => {
 
 // event to find and show the pokemon selected in the modal
 const handleSelectPokemon = async (pokemon) => {
-  showModal.value = true;
   await fetchPokemonByName(pokemon);
+  showModal.value = true;
   setSelectedPokemon();
 }
 
