@@ -1,6 +1,7 @@
 # PokeDex
 
-This project is a responsive Pokédex web app built in **Vue.js + Vite** and designed for exploring the Pokémon and their characteristics. and get information of those Pokemon using the official [PokeApi](https://pokeapi.co/). The app allows you to collect Pokemon by saving them to your favorites or check their personal information such as weight, height and type.
+This project is a responsive Pokédex web app built in **Vue.js + Vite** and designed for exploring the Pokémon and their characteristics.
+The app allows you to collect Pokemon by saving them to your favorites or check their personal information such as weight, height and type.
 
 Deploy = https://pokke-dex.netlify.app/
 
@@ -11,7 +12,7 @@ Deploy = https://pokke-dex.netlify.app/
 
 
 ### Features:
-- **Data collecting:** Get a list of Pokémon.
+- **Data collecting:** Get a list of Pokémon from [PokeApi](https://pokeapi.co/).
 - **Get Information:** Get information about a pokemon.
 - **Saving Favorites:** Save Pokemon to your Favorites.
 
