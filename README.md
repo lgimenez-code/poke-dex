@@ -1,15 +1,17 @@
 # PokeDex
 
-This project is an app for checking Pokemon data. The app allows you to collect Pokemon by saving them to your favorites or check their personal information such as weight, height and type.
+This project is a responsive Pokédex web app built in **Vue.js + Vite** and designed for exploring the Pokémon and their characteristics. and get information of those Pokemon using the official [PokeApi](https://pokeapi.co/). The app allows you to collect Pokemon by saving them to your favorites or check their personal information such as weight, height and type.
 
 Deploy = https://pokedex-psi-hazel.vercel.app/welcome
 
+<div style="display:flex;">
 <img src="https://github.com/user-attachments/assets/7398c77e-7af3-41ba-862e-8338f15629dd" width="450px"/>
 <img src="https://github.com/user-attachments/assets/e3995cf4-1df0-418f-b561-f561e480965e" width="450px"/>
+</div>
 
 
 ### Features:
-- **Data collecting:** Get a list of Pokémon using the [PokeApi](https://pokeapi.co/).
+- **Data collecting:** Get a list of Pokémon.
 - **Get Information:** Get information about a pokemon.
 - **Saving Favorites:** Save Pokemon to your Favorites.
 
@@ -29,9 +31,12 @@ To install the project dependencies, run the following command in your terminal:
 ```text
 npm install
 ```
+
 To start the application in development mode, run the following command:
 ```text
 npm run dev
 ```
+
+
 
 
