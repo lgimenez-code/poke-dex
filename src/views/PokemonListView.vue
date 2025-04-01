@@ -10,7 +10,6 @@
     <div class="containerFooter">
       <div class="containerSelectors">
         <BaseButton
-          class="btnSelector"
           :type="btnTypeAll"
           @click="handleButton"
         >
@@ -18,7 +17,6 @@
           All
         </BaseButton>
         <BaseButton
-          class="btnSelector"
           :type="btnTypeFavorites"
           @click="handleButton"
         >
@@ -27,6 +25,10 @@
         </BaseButton>
       </div>
     </div>
+    <!-- modal -->
+    <Teleport to="body">
+      <BaseModal />
+    </Teleport>
   </div>
 </template>
 
@@ -36,6 +38,7 @@ import BaseSearch from "../components/BaseSearch.vue";
 import BaseList from "../components/BaseList.vue";
 import BaseButton from "../components/BaseButton.vue";
 import Loader from "../components/Loader.vue";
+import BaseModal from "../components/BaseModal.vue";
 import { usePokemon } from "../composables/usePokemon";
 
 const BaseIcons = inject("BaseIcons");

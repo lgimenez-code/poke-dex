@@ -2,7 +2,7 @@
   <div class="card">
     <div class="contentCard">
       <span class="textCard">{{ name }}</span>
-      <img class="imgCard" :src="favorite ? BaseIcons.starActiveIcon : BaseIcons.starInactiveIcon" alt="pokeball icon" />
+      <img class="btnAddFavorites" :src="favorite ? BaseIcons.starActiveIcon : BaseIcons.starInactiveIcon" alt="pokeball icon" />
     </div>
   </div>
 </template>
@@ -41,13 +41,5 @@ defineProps({
 
 .textCard {
   @apply text-[2.2rem] text-[var(--darkgray)];
-}
-
-.imgCard {
-  transition: box-shadow 0.3s ease;
-  @apply rounded-[50%];
-}
-.imgCard:hover {
-  box-shadow: 0 0 10px 5px var(--gold);
 }
 </style>

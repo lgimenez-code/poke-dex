@@ -2,7 +2,7 @@
   <div class="">
     <BaseCard v-for="(item, i) in pokemons" :key="i"
       :name="item.name"
-      :favorite="i == 5 ? true : false"
+      :favorite="false"
     />
   </div>
 </template>

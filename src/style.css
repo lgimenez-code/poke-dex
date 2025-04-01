@@ -50,10 +50,16 @@ h2 {
   text-align: center;
 }
 
-
-
-
-
+.btnAddFavorites {
+  transition: box-shadow 0.8s ease;
+  transition: transform 0.8s ease;
+  @apply rounded-[50%];
+}
+.btnAddFavorites:hover {
+  box-shadow: 0 0 10px 5px var(--gold);
+  transform: scale(1.05);
+  cursor: pointer;
+}
 
 
 
