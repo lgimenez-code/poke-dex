@@ -4,21 +4,27 @@
       <BaseSearch />
     </div>
     <div class="containerList">
-      <BaseList v-if="!loading" :pokemons="pokemonList" />
+      <BaseList
+        v-if="!loading && pokemonList.length"
+        :pokemons="pokemonList"
+        :favorites="storeFavorites.getFavorites"
+        @selected="handleSelectPokemon"
+        @addFavorite="handleAddFavorite"
+      />
       <Loader v-else class="loader"/>
     </div>
     <div class="containerFooter">
       <div class="containerSelectors">
         <BaseButton
           :type="btnTypeAll"
-          @click="handleButton"
+          @click="handleSelectorButton"
         >
           <img :src="BaseIcons.listIcon" alt="list icon" />
           All
         </BaseButton>
         <BaseButton
           :type="btnTypeFavorites"
-          @click="handleButton"
+          @click="handleSelectorButton"
         >
           <img :src="BaseIcons.favsIcon" alt="favs icon" />
           Favorites
@@ -27,7 +33,15 @@
     </div>
     <!-- modal -->
     <Teleport to="body">
-      <BaseModal />
+      <BaseModal
+        v-if="showModal"
+        :image="selected.image"
+        :name="selected.name"
+        :weight="selected.weight"
+        :height="selected.height"
+        :types="selected.types"
+        @closeModal="showModal = !showModal"
+      />
     </Teleport>
   </div>
 </template>
@@ -40,14 +54,29 @@ import BaseButton from "../components/BaseButton.vue";
 import Loader from "../components/Loader.vue";
 import BaseModal from "../components/BaseModal.vue";
 import { usePokemon } from "../composables/usePokemon";
+import { useFavoritesStore } from "../stores/useFavoritesStore.js";
+import { useStorage } from "../composables/useStorage.js";
+
+const storeFavorites = useFavoritesStore();
+const { saveToStorage, getDataStorage } = useStorage();
 
 const BaseIcons = inject("BaseIcons");
-const { pokemonList, loading, error, fetchPokemon, fetchPokemonByName, } = usePokemon();
+const {
+  pokemonList,
+  pokemonSearch,
+  loading,
+  error,
+  fetchPokemon,
+  fetchPokemonByName,
+} = usePokemon();
 const btnTypeAll = ref("primary");
 const btnTypeFavorites = ref("tertiary");
 const btnAllSelected = ref(true);
+const showModal = ref(false);
+const selected = ref({});
 
-const handleButton = () => {
+// event to change the selectors
+const handleSelectorButton = () => {
   btnAllSelected.value = !btnAllSelected.value;
   if (btnAllSelected.value) {
     btnTypeAll.value = "primary";
@@ -58,7 +87,36 @@ const handleButton = () => {
   }
 };
 
+// event to find and show the pokemon selected in the modal
+const handleSelectPokemon = async (pokemon) => {
+  showModal.value = true;
+  selected.value = {};
+  await fetchPokemonByName(pokemon);
+  selected.value = {
+    id: pokemonSearch.value?.id,
+    image: pokemonSearch.value?.sprites?.other?.['official-artwork']?.front_default,
+    name: pokemonSearch.value?.name,
+    weight: pokemonSearch.value?.weight,
+    height: pokemonSearch.value?.height,
+    types: pokemonSearch.value?.types.map((item) => { return item.type.name }).join(', '),
+  }
+}
+
+const handleAddFavorite = (name) => {
+  storeFavorites.addToFavorites(name);
+  saveToStorage('favoritesStorage', name);
+  console.log(storeFavorites.getFavorites);
+}
+
+const initializeStorage = () => {
+  const favoritesStorage = getDataStorage('favoritesStorage');
+  if (favoritesStorage && favoritesStorage.length) {
+    storeFavorites.initializeFavorites(favoritesStorage);
+  }
+}
+
 onMounted(() => {
+  initializeStorage();
   fetchPokemon();
 });
 </script>

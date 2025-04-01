@@ -5,7 +5,7 @@
         <div class="containerPokemonImg">
           <img
             class="pokemonImage"
-            src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/25.png"
+            :src="image"
             alt="pokemon image"
             loading="lazy"
           >
@@ -15,22 +15,23 @@
             class="closeButton"
             :src="BaseIcons.closeIcon"
             alt="close modal"
+            @click="emit('closeModal', true)"
           >
         </div>
       </div>
       <div class="infoPokemon">
         <div class="containerInfo">
           <div class="rowInfo">
-            <span class="labelInfo"><b>Name:</b> Squirtle</span>
+            <span class="labelInfo"><b>Name:</b> {{ name }}</span>
           </div>
           <div class="rowInfo">
-            <span class="labelInfo"><b>Weight:</b> 20</span>
+            <span class="labelInfo"><b>Weight:</b> {{ weight }}</span>
           </div>
           <div class="rowInfo">
-            <span class="labelInfo"><b>Height:</b> 18</span>
+            <span class="labelInfo"><b>Height:</b> {{ height }}</span>
           </div>
           <div class="rowInfo">
-            <span class="labelInfo"><b>Types:</b> Normal, Water</span>
+            <span class="labelInfo"><b>Types:</b> {{ types }}</span>
           </div>
         </div>
       </div>
@@ -47,10 +48,35 @@
 </template>
 
 <script setup>
-import { inject } from "vue";
+import { inject, defineProps, defineEmits } from "vue";
 import BaseButton from "./BaseButton.vue";
 
 const BaseIcons = inject('BaseIcons');
+
+defineProps({
+  image: {
+    type: String,
+    default: '-',
+  },
+  name: {
+    type: String,
+    default: '-',
+  },
+  weight: {
+    type: String,
+    default: '-',
+  },
+  height: {
+    type: String,
+    default: '-',
+  },
+  types: {
+    type: String,
+    default: '-',
+  },
+});
+
+const emit = defineEmits([ 'closeModal' ]);
 
 </script>
 

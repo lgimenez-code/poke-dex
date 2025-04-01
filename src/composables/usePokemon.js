@@ -3,6 +3,7 @@ import { pokeApi } from "../api/pokeApi";
 
 export function usePokemon() {
   const pokemonList = ref([]);
+  const pokemonSearch = ref({});
   const loading = ref(false);
   const error = ref("");
 
@@ -24,9 +25,10 @@ export function usePokemon() {
   const fetchPokemonByName = async (name) => {
     loading.value = true;
     error.value = "";
+    pokemonSearch.value = {};
     try {
       const response = await pokeApi.getByName(name);
-      pokemonList.value = [response];
+      pokemonSearch.value = response;
     } catch (err) {
       error.value = "Failed to fetch Pokemon data.";
     } finally {
@@ -36,6 +38,7 @@ export function usePokemon() {
 
   return {
     pokemonList,
+    pokemonSearch,
     loading,
     error,
     fetchPokemon,

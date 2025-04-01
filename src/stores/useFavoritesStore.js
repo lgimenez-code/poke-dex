@@ -5,19 +5,27 @@ export const useFavoritesStore = defineStore('favorites', {
     favorites: [],
   }),
   getters: {
+    // get a list of favorites
     getFavorites: (state) => state.favorites,
-    isFavorite: (state) => (pokemonId) => {
-      return state.favorites.some(pokemon => pokemon.id === pokemonId)
+    // validates if the favorite already exists in the list
+    isFavorite: (state) => (pokemonName) => {
+      return state.favorites.some(name => name === pokemonName)
     },
   },
   actions: {
-    addToFavorites(pokemon) {
-      if (!this.isFavorite(pokemon.id)) {
-        this.favorites.push(pokemon)
+    // save a new favorite or remove the favorite from the list
+    addToFavorites(pokemonName) {
+      if (!this.isFavorite(pokemonName)) {
+        this.favorites.push(pokemonName);
+      } else {
+        this.favorites = this.favorites.filter(name => name !== pokemonName)
       }
     },
-    removeFromFavorites(pokemonId) {
-      this.favorites = this.favorites.filter(pokemon => pokemon.id !== pokemonId)
+    initializeFavorites(array) {
+      this.favorites = array.slice();
+    },
+    clearFavorites() {
+      this.favorites = [];
     },
   },
 });
