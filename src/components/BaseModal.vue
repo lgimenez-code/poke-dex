@@ -37,10 +37,20 @@
       </div>
       <div class="actions">
         <div class="containerButtons">
-          <BaseButton :type="'primary'" class="btnSharePokemon">
+          <BaseButton
+            :type="'primary'"
+            class="btnSharePokemon"
+            @click="copyToClipboard"
+          >
             Share to my friends
           </BaseButton>
-          <img class="btnAddFavorites" :src="BaseIcons.starInactiveIcon" alt="" loading="lazy">
+          <img
+            class="btnAddFavorites"
+            :src="isFavorite ? BaseIcons.starActiveIcon : BaseIcons.starInactiveIcon"
+            alt="button favs"
+            loading="lazy"
+            @click="emit('addFavorite', name)"
+          >
         </div>
       </div>
     </div>
@@ -53,7 +63,7 @@ import BaseButton from "./BaseButton.vue";
 
 const BaseIcons = inject('BaseIcons');
 
-defineProps({
+const props = defineProps({
   image: {
     type: String,
     default: '-',
@@ -63,20 +73,33 @@ defineProps({
     default: '-',
   },
   weight: {
-    type: String,
-    default: '-',
+    type: Number,
+    default: 0,
   },
   height: {
-    type: String,
-    default: '-',
+    type: Number,
+    default: 0,
   },
   types: {
     type: String,
     default: '-',
   },
+  isFavorite: {
+    type: Boolean,
+    default: false,
+  },
 });
 
-const emit = defineEmits([ 'closeModal' ]);
+const emit = defineEmits([ 'closeModal', 'addFavorite' ]);
+
+const copyToClipboard = () => {
+  navigator.clipboard.writeText(JSON.stringify([
+    `name: ${props.name}`,
+    `weight: ${props.weight}`,
+    `height: ${props.height}`,
+    `types: ${props.types.replace(',','')}`,
+  ].join(', ')));
+}
 
 </script>
 
@@ -151,9 +174,11 @@ const emit = defineEmits([ 'closeModal' ]);
 }
 
 .btnSharePokemon {
+  transition: transform 0.2s ease;
   @apply w-[19.5rem] h-full ml-[0];
 }
-
-
+.btnSharePokemon:active {
+  transform: scale(1.1);
+}
 
 </style>

@@ -2,15 +2,29 @@
   <div class="containerSearch">
     <div class="inputSearch">
       <img :src="BaseIcons.searchIcon" alt="search icon" class="iconSearch" />
-      <input type="text" placeholder="Search" v-bind="$attrs"/>
+      <input
+        type="text"
+        placeholder="Search"
+        v-bind="$attrs"
+        :value="value"
+        @input="emit('update', $event.target.value)"
+      />
     </div>
   </div>
 </template>
 
 <script setup>
-import { inject } from "vue";
+import { inject, defineEmits, defineProps } from "vue";
+
+defineProps({
+  value: {
+    type: String,
+    default: '',
+  }
+})
 
 const BaseIcons = inject("BaseIcons");
+const emit = defineEmits(['update']);
 </script>
 
 <style scoped>

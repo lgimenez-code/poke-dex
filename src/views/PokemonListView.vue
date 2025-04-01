@@ -1,12 +1,15 @@
 <template>
   <div class="containerPokemonView">
     <div class="containerHeader">
-      <BaseSearch />
+      <BaseSearch
+        :value="searchField"
+        @update="searchField = $event"
+      />
     </div>
     <div class="containerList">
       <BaseList
-        v-if="!loading && pokemonList.length"
-        :pokemons="pokemonList"
+        v-if="!loading && generalList?.length"
+        :pokemons="generalList"
         :favorites="storeFavorites.getFavorites"
         @selected="handleSelectPokemon"
         @addFavorite="handleAddFavorite"
@@ -16,6 +19,7 @@
     <div class="containerFooter">
       <div class="containerSelectors">
         <BaseButton
+          :isSelected="btnAllSelected"
           :type="btnTypeAll"
           @click="handleSelectorButton"
         >
@@ -23,6 +27,7 @@
           All
         </BaseButton>
         <BaseButton
+          :isSelected="!btnAllSelected"
           :type="btnTypeFavorites"
           @click="handleSelectorButton"
         >
@@ -31,6 +36,7 @@
         </BaseButton>
       </div>
     </div>
+
     <!-- modal -->
     <Teleport to="body">
       <BaseModal
@@ -40,14 +46,16 @@
         :weight="selected.weight"
         :height="selected.height"
         :types="selected.types"
+        :isFavorite="storeFavorites.isFavorite(selected.name)"
         @closeModal="showModal = !showModal"
+        @addFavorite="handleAddFavorite"
       />
     </Teleport>
   </div>
 </template>
 
 <script setup>
-import { ref, inject, onMounted } from "vue";
+import { ref, inject, onMounted, computed } from "vue";
 import BaseSearch from "../components/BaseSearch.vue";
 import BaseList from "../components/BaseList.vue";
 import BaseButton from "../components/BaseButton.vue";
@@ -74,6 +82,29 @@ const btnTypeFavorites = ref("tertiary");
 const btnAllSelected = ref(true);
 const showModal = ref(false);
 const selected = ref({});
+const searchField = ref('');
+
+const generalList = computed(() => {
+  let arrayPokemon = [];
+  // get the list "general" or "favorites"
+  if (btnAllSelected.value) {
+    arrayPokemon = pokemonList.value;
+  } else {
+    arrayPokemon = pokemonList.value.filter((item) => storeFavorites.getFavorites.includes(item.name));
+  }
+  // if the search field have a value, then search...
+  if (searchField.value) {
+    const queryLower = searchField.value.toLowerCase();
+    arrayPokemon = arrayPokemon.filter(item => {
+      const name = item.name.toLowerCase();
+      return name.startsWith(queryLower) ||
+        name.split(' ').some(word => word.startsWith(queryLower));
+    });
+  }
+
+  return arrayPokemon;
+});
+
 
 // event to change the selectors
 const handleSelectorButton = () => {
@@ -85,13 +116,32 @@ const handleSelectorButton = () => {
     btnTypeAll.value = "tertiary";
     btnTypeFavorites.value = "primary";
   }
+  searchField.value = '';
 };
 
 // event to find and show the pokemon selected in the modal
 const handleSelectPokemon = async (pokemon) => {
   showModal.value = true;
-  selected.value = {};
   await fetchPokemonByName(pokemon);
+  setSelectedPokemon();
+}
+
+// save data in the Store (Pinia) and LocalStorage
+const handleAddFavorite = (name) => {
+  storeFavorites.addToFavorites(name);
+  saveToStorage('favoritesStorage', name);
+}
+
+// initializes the localStorage data and Pinia data
+const initializeStorage = () => {
+  const favoritesStorage = getDataStorage('favoritesStorage');
+  if (favoritesStorage && favoritesStorage.length) {
+    storeFavorites.initializeFavorites(favoritesStorage);
+  }
+}
+
+// set pokemon selected
+const setSelectedPokemon = () => {
   selected.value = {
     id: pokemonSearch.value?.id,
     image: pokemonSearch.value?.sprites?.other?.['official-artwork']?.front_default,
@@ -99,19 +149,6 @@ const handleSelectPokemon = async (pokemon) => {
     weight: pokemonSearch.value?.weight,
     height: pokemonSearch.value?.height,
     types: pokemonSearch.value?.types.map((item) => { return item.type.name }).join(', '),
-  }
-}
-
-const handleAddFavorite = (name) => {
-  storeFavorites.addToFavorites(name);
-  saveToStorage('favoritesStorage', name);
-  console.log(storeFavorites.getFavorites);
-}
-
-const initializeStorage = () => {
-  const favoritesStorage = getDataStorage('favoritesStorage');
-  if (favoritesStorage && favoritesStorage.length) {
-    storeFavorites.initializeFavorites(favoritesStorage);
   }
 }
 

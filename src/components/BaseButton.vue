@@ -1,5 +1,5 @@
 <template>
-  <button :class="type" v-bind="$attrs">
+  <button :class="type" v-bind="$attrs" :disabled="isSelected">
     <slot/>
   </button>
 </template>
@@ -10,6 +10,10 @@ defineProps({
   type: {
     type: String,
     default: 'primary' | 'secondary' | 'tertiary',
+  },
+  isSelected: {
+    type: Boolean,
+    default: false,
   },
 });
 
