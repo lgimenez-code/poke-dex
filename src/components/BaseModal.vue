@@ -2,13 +2,21 @@
   <div class="containerModal">
     <div class="contentModal">
       <div class="heroImage">
-        <img
-          class="pokemonImage"
-          src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/25.png"
-          alt="pokemon image"
-          loading="lazy"
-        >
-        <img class="closeButton" :src="BaseIcons.closeIcon" alt="close modal">
+        <div class="containerPokemonImg">
+          <img
+            class="pokemonImage"
+            src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/25.png"
+            alt="pokemon image"
+            loading="lazy"
+          >
+        </div>
+        <div class="containerCloseBtn">
+          <img
+            class="closeButton"
+            :src="BaseIcons.closeIcon"
+            alt="close modal"
+          >
+        </div>
       </div>
       <div class="infoPokemon">
         <div class="containerInfo">
@@ -69,16 +77,24 @@ const BaseIcons = inject('BaseIcons');
   @apply relative w-full flex justify-center items-center object-cover bg-center;
 }
 
-.closeButton {
-  transition: transform 0.8s ease;
-  @apply rounded-[50%] cursor-pointer w-[2.8rem] h-[2.8rem] relative left-[16.5rem] bottom-[6.8rem];
-}
-.closeButton:hover {
-  transform: scale(1.2);
+.containerPokemonImg {
+  @apply absolute;
 }
 
 .pokemonImage {
   @apply w-[18rem] h-[18rem];
+}
+
+.containerCloseBtn {
+  @apply absolute top-[1rem] right-[1rem];
+}
+
+.closeButton {
+  transition: transform 0.8s ease;
+  @apply rounded-[50%] cursor-pointer w-[2.8rem] h-[2.8rem];
+}
+.closeButton:hover {
+  transform: scale(1.2);
 }
 
 .infoPokemon {
