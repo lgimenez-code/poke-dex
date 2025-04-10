@@ -5,10 +5,7 @@ The app allows you to collect Pokemon by saving them to your favorites or check 
 
 Deploy = [link](https://pokedex-psi-hazel.vercel.app/welcome)
 
-<div style="display:flex;">
 <img src="https://github.com/user-attachments/assets/7398c77e-7af3-41ba-862e-8338f15629dd" width="450px"/>
-<img src="https://github.com/user-attachments/assets/e3995cf4-1df0-418f-b561-f561e480965e" width="450px"/>
-</div>
 
 <img src="https://github.com/user-attachments/assets/57ad397c-6c86-4cc1-83aa-a939a7ff2d54" width="0px"/>
 
@@ -16,6 +13,8 @@ Deploy = [link](https://pokedex-psi-hazel.vercel.app/welcome)
 - **Data collecting:** Get a list of Pokémon from [PokeApi](https://pokeapi.co/).
 - **Get Information:** Get information about a pokemon.
 - **Saving Favorites:** Save Pokemon to your Favorites.
+
+<img src="https://github.com/user-attachments/assets/e3995cf4-1df0-418f-b561-f561e480965e" width="450px"/>
 
 ### Dependencies:
 - vue v3.5
