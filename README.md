@@ -3,7 +3,7 @@
 This project is a responsive Pokédex web app built in **Vue.js + Vite** and designed for exploring the Pokémon and their characteristics.
 The app allows you to collect Pokemon by saving them to your favorites or check their personal information such as weight, height and type.
 
-Deploy = https://pokke-dex.netlify.app/
+Deploy = [link](https://pokedex-psi-hazel.vercel.app/welcome)
 
 <div style="display:flex;">
 <img src="https://github.com/user-attachments/assets/7398c77e-7af3-41ba-862e-8338f15629dd" width="450px"/>
