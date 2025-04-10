@@ -7,7 +7,6 @@
             class="pokemonImage"
             :src="image"
             alt="pokemon image"
-            loading="lazy"
           >
         </div>
         <div class="containerCloseBtn">
@@ -48,7 +47,6 @@
             class="btnAddFavorites"
             :src="isFavorite ? BaseIcons.starActiveIcon : BaseIcons.starInactiveIcon"
             alt="button favs"
-            loading="lazy"
             @click="emit('addFavorite', name)"
           >
         </div>
