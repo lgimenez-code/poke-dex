@@ -10,6 +10,7 @@ Deploy = https://pokke-dex.netlify.app/
 <img src="https://github.com/user-attachments/assets/e3995cf4-1df0-418f-b561-f561e480965e" width="450px"/>
 </div>
 
+<img src="https://github.com/user-attachments/assets/57ad397c-6c86-4cc1-83aa-a939a7ff2d54" width="0px"/>
 
 ### Features:
 - **Data collecting:** Get a list of Pokémon from [PokeApi](https://pokeapi.co/).
